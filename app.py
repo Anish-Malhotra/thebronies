@@ -16,20 +16,13 @@ beers = [german, british, belgian, french]
 
 @app.route("/", methods=["GET","POST"])
 def home():
-    if request.method == "GET":
-        return render_template("home.html")
-    else:
-        button = request.form["b"]
-        if button == None:
-            return render_template("home.html")
-        else:
-            place = random.choice(beers)
-            search = random.choice(place)
-            return page(search)
+    return render_template("home.html")
 
-@app.route("/")
-def page(search=None):
+@app.route("/result", methods=["GET", "POST"])
+def page():
     #get a random beer
+    place = random.choice(beers)
+    search = random.choice(place)
     url = "http://api.brewerydb.com/v2/beer/" + search + "/?key=0c040a3ebf5d18acb0162c76cea5ebc9"
     request = urllib2.urlopen(url)
     resultstring = request.read()

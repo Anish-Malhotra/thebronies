@@ -1,30 +1,41 @@
 {% extends "base.html" %}
 <html>
-<title> Beer API Tester </title>
 
-<head>
+  <head>
+    {% block body %}
+    <title> Beer API Tester </title>
+    <style>
+      .btn-xlg {
+      padding: 18px 28px;
+      font-size: 40px;
+      line-height: normal;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      }
+      body {
+      background-image: url(../static/img/background.jpg);
+      background-repeat:no-repeat;
+      display: compact;
+      }
+    </style>
+  </head>
 
-</head>
+  <body>
+    <br><br><br>
+    <div class="jumbotron container">
+      <center>
+	<h1> Beer API </h1>
+	<!--h2> Enter a beer name below: </h2-->
+	<br>
+	<form class="form_control" action="/result" method="POST" role="form">
+	  <div class="form_group">
+	    <!--input class="form-control" type="text" name="search" value=""--><br>
+	    <button class="btn btn-primary btn-xlg" type="submit" name="b">Get Beer</button>
+	  </div>
+	</form>
+      </center>
 
-<style>
-h1{
-color: blue
-}
-h2{
-color: red
-}
-</style>
-
-<body>
-
-<h1> BEER API </h1>
-<h2> Please enter a beer name below: </h2>
-
-<form method="POST">
-<input type="text" name="search" value="0c7cxa">
-<input type="submit" name="b" value="Search">
-</form>
-
-</body>
-
+  </body>
+  {% endblock %}
 </html>

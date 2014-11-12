@@ -1,27 +1,49 @@
 {% extends "base.html" %}
 <html>
-<title> Result </title>
 
-<head>
-</head>
+  <head>
+    {% block body %}
+    <title> Result </title>
+    <style>
+      h1 {
+      font-size: 80px;
+      }
+      h2 { 
+      font-size: 60px;
+      }
+    </style>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+	<ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li class="active"><a href="">New Beer</a></li>
+	</ul>
+      </div>
+    </nav>
+  </head>
 
-<style>
-h1{
-color: blue
-}
-h2{
-color: red
-}
-</style>
-
-<body>
-
-<h1> Result </h1>
-
-{% if result%}
-{{result}}
-{%endif%}
-
-</body>
-
+  <body>
+    <center>
+      <h1> Your Beer </h1>
+    </center>
+    <br><br>
+    <div class="jumbotron container">
+      <center>
+	<h2> {{result[0][0]}} </h2>
+      </center>
+      <h3> {{result[0][1]}} </h3>
+      <h3> ABV: {{result[0][2]}} </h3><br>
+    </div>
+    <div class="container">
+      <div class="row">
+	<div class="col-md-2">
+	  <h2> Pony: </h2>
+	</div>
+	<div class="col-md-8">
+	  <img src="{{result[1]}}">
+	</div>
+      </div>
+    </div>
+  </body>
+  {% endblock %}
 </html>

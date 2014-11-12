@@ -1,0 +1,30 @@
+<html>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<title> Beer API Tester </title>
+
+<head>
+<link rel="stylesheet" type="text/css" href="/static/demo.css">
+</head>
+
+<style>
+h1{
+color: blue
+}
+h2{
+color: red
+}
+</style>
+
+<body>
+
+<h1> BEER API </h1>
+<h2> Please enter a beer name below: </h2>
+
+<form method="POST">
+<input type="text" name="search" value="d25euf">
+<input type="submit" name="b" value="Search">
+</form>
+
+</body>
+
+</html>

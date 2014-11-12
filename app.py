@@ -36,9 +36,14 @@ def page():
         abv = d["data"]["abv"]
     except:
         abv = "N/A"
+    try:
+        bid = d["data"]["id"]
+    except:
+        bid = "No ID"
     info = [name.encode('ascii', 'ignore'), 
             desc.encode('ascii', 'ignore'), 
-            abv.encode('ascii', 'ignore')]
+            abv.encode('ascii', 'ignore'),
+            bid.encode('ascii', 'ignore')]
     #get a random pony image
     id = randint(0,100)
     url1 = "http://ponyfac.es/api.json/id:" + str(id)

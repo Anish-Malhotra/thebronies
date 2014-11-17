@@ -26,12 +26,15 @@
     <div class="jumbotron container">
       <center>
 	<h1> Beer API </h1>
-	<!--h2> Enter a beer name below: </h2-->
+	<h2> Search an ABV between 2 and 20: </h2>
 	<br>
 	<form class="form_control" action="/result" method="POST" role="form">
 	  <div class="form_group">
+	    <input type="text" name="abv">
 	    <!--input class="form-control" type="text" name="search" value=""--><br>
-	    <button class="btn btn-primary btn-xlg" type="submit" name="b">Get Beer</button>
+	    <br>
+	    <br>
+	    <button class="btn btn-primary btn-xlg" type="submit" name="b">Get Beers</button>
 	  </div>
 	</form>
       </center>

@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect
 from random import randint
-import json, random
+import json, random, beers
 try:
     import urllib.request as urllib2
 except ImportError:
@@ -8,42 +8,29 @@ except ImportError:
 
 app = Flask(__name__)
 
-german = ["l8Qtgj", "Hbpi1r", "dadokQ"]
-british = ["3XfZXX", "c6Ke7P", "iaIlts"]
-belgian = ["fdnFoV", "5yCG1U", "ynIdkL"]
-french = ["1wSztN", "QyT3s1", "j1V1eo"]
-beers = [german, british, belgian, french]
-
 @app.route("/", methods=["GET","POST"])
 def home():
-    return render_template("home.html")
+    if request.method == "GET":
+        return render_template("home.html")
+    else:
+        result = request.form['abv']
+        button = request.form['b']
+        if button==None:
+            return render_template("home.html")
+        else:            
+            #check the input
+            if len(result)>3:
+                flash("Invalid ABV number, must be an INT or a DOUBLE.")
+                return redirect("/")
+            try:
+                abv = float(result)
+            except:
+                flash("Invalid ABV number, must be an INT or a DOUBLE.")
+                return redirect("/")
+            return page(abv)
 
 @app.route("/result", methods=["GET", "POST"])
-def page():
-    #get a random beer
-    place = random.choice(beers)
-    search = random.choice(place)
-    url = "http://api.brewerydb.com/v2/beer/" + search + "/?key=0c040a3ebf5d18acb0162c76cea5ebc9"
-    request = urllib2.urlopen(url)
-    resultstring = request.read()
-    d = json.loads(resultstring)
-    name = d["data"]["name"]
-    try:
-        desc = d["data"]["description"]
-    except:
-        desc = "No description."
-    try:
-        abv = d["data"]["abv"]
-    except:
-        abv = "N/A"
-    try:
-        bid = d["data"]["id"]
-    except:
-        bid = "No ID"
-    info = [name.encode('ascii', 'ignore'), 
-            desc.encode('ascii', 'ignore'), 
-            abv.encode('ascii', 'ignore'),
-            bid.encode('ascii', 'ignore')]
+def page(abv):
     #get a random pony image
     id = randint(0,100)
     url1 = "http://ponyfac.es/api.json/id:" + str(id)
@@ -54,7 +41,8 @@ def page():
         link = d1["faces"][0]["thumbnail"]
     except:
         link = "http://ponyfac.es/1/thumb"
-    output = [info, 
+
+    output = [abv, beers.get_beers(abv), 
               link.encode('ascii', 'ignore')]
     return render_template("page.html", result = output)
 

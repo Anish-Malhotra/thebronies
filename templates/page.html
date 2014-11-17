@@ -24,16 +24,13 @@
 
   <body>
     <center>
-      <h1> Your Beer </h1>
+      <h1> Search Results </h1>
     </center>
     <br><br>
     <div class="jumbotron container">
       <center>
-	<h2> {{result[0][0]}} </h2>
-      </center>
-      <h3> {{result[0][1]}} </h3>
-      <h3> ABV: {{result[0][2]}} </h3>
-      <h3> BreweryDB ID: {{result[0][3]}} </h3><br>
+	<h2> ABV: {{result[0]}} </h2>
+      </center> 
     </div>
     <div class="container">
       <div class="row">
@@ -41,7 +38,7 @@
 	  <h2> Pony: </h2>
 	</div>
 	<div class="col-md-8">
-	  <img src="{{result[1]}}">
+	  <img src="{{result[2]}}">
 	</div>
       </div>
     </div>

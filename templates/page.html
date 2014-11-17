@@ -30,7 +30,14 @@
     <div class="jumbotron container">
       <center>
 	<h2> ABV: {{result[0]}} </h2>
-      </center> 
+      </center>
+      {% for beer in result[1] %}
+      <h3> {{beer['name']}} </h3>
+      <h4> {{beer['desc']}} </h4>
+      <h4> Style: {{beer['style']}} </h4>
+      <h4> &emsp;&emsp;{{beer['styledesc']}} </h4>
+      <h4> BreweryDB ID: {{beer['id']}} </h4><br>
+      {% endfor %}
     </div>
     <div class="container">
       <div class="row">

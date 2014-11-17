@@ -16,7 +16,7 @@
       <div class="container">
 	<ul class="nav navbar-nav">
           <li><a href="/">Home</a></li>
-          <li class="active"><a href="">New Beer</a></li>
+          <li><a href="/">New Beer</a></li>
 	</ul>
       </div>
     </nav>
@@ -29,25 +29,13 @@
     <br><br>
     <div class="jumbotron container">
       <center>
-	<h2> ABV: {{result[0]}} </h2>
+	<h2> Beer: {{result['name']}} </h2>
+	<h2> Brewery: <a href="{{brewery['website']}}"> {{brewery['name']}} </a></h2>
+	<h3> {{brewery['desc']}} </h3>
+	{% if link != "---" %}
+	<iframe width="600" height="450" frameborder="0" style="border:0" src="{{ link }}"></iframe>
+	{% endif %}
       </center>
-      {% for beer in result[1] %}
-      <h3> <a href="/{{beer['id']}}"> {{beer['name']}} </a> </h3>
-      <h4> {{beer['desc']}} </h4>
-      <h4> Style: {{beer['style']}} </h4>
-      <h4> &emsp;&emsp;{{beer['styledesc']}} </h4>
-      <h4> BreweryDB ID: {{beer['id']}} </h4><br>
-      {% endfor %}
-    </div>
-    <div class="container">
-      <div class="row">
-	<div class="col-md-2">
-	  <h2> Pony: </h2>
-	</div>
-	<div class="col-md-8">
-	  <img src="{{result[2]}}">
-	</div>
-      </div>
     </div>
   </body>
   {% endblock %}

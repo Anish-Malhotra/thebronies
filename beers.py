@@ -34,3 +34,15 @@ def get_beers(abv):
 
     return beers
 
+def get_beer(bid):
+    #grab the database info
+    url = "http://api.brewerydb.com/v2/beer/" + bid + "?key=0c040a3ebf5d18acb0162c76cea5ebc9&withBreweries=Y"
+    request = urllib2.urlopen(url)
+    resultstring = request.read()
+    db = json.loads(resultstring)
+    results = db["data"]
+    beer = {}
+    beer['name'] = results['name'].encode('ascii', 'ignore')
+    beer['id'] = results['id'].encode('ascii', 'ignore')
+    beer['brewery'] = results['breweries'][0]
+    return beer

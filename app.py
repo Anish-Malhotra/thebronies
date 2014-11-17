@@ -3,8 +3,10 @@ from random import randint
 import json, random, beers
 try:
     import urllib.request as urllib2
+    import urllib.parse as urllib
 except ImportError:
     import urllib2
+    import urllib
 
 app = Flask(__name__)
 
@@ -29,7 +31,6 @@ def home():
                 return redirect("/")
             return page(abv)
 
-@app.route("/result", methods=["GET", "POST"])
 def page(abv):
     #get a random pony image
     id = randint(0,100)
@@ -45,6 +46,30 @@ def page(abv):
     output = [abv, beers.get_beers(abv), 
               link.encode('ascii', 'ignore')]
     return render_template("page.html", result = output)
+
+@app.route("/<bid>")
+def beer(bid):
+    beer = beers.get_beer(bid)
+    brewery = beer['brewery']
+    b = {}
+    try:
+        b['website'] = brewery['website'].encode('ascii', 'ignore')
+    except:
+        b['website'] = ""
+    try:
+        b['desc'] = brewery['description'].encode('ascii', 'ignore')
+    except:
+        b['desc'] = "No Brewery Description"
+    try:    
+        b['name'] = brewery['name'].encode('ascii', 'ignore')
+    except:
+        b['name'] = "No Brewery Name"
+    try:    
+        link = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyBUxoapZRqwjQWrM0MFtM9wIf2NXFhX3Jo&origin=Stuyvesant+High+School&destination=" + urllib.quote_plus(brewery['locations'][0]['streetAddress'])
+    except:
+        link = "---"
+
+    return render_template("beer.html", result = beer, brewery = b, link = link);
 
 if __name__ == "__main__":
     app.debug = True

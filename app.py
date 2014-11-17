@@ -9,6 +9,7 @@ except ImportError:
     import urllib
 
 app = Flask(__name__)
+app.secret_key = "w0w-beer-and-pony"
 
 @app.route("/", methods=["GET","POST"])
 def home():
@@ -42,9 +43,12 @@ def page(abv):
         link = d1["faces"][0]["thumbnail"]
     except:
         link = "http://ponyfac.es/1/thumb"
-
-    output = [abv, beers.get_beers(abv), 
-              link.encode('ascii', 'ignore')]
+    try:
+        output = [abv, beers.get_beers(abv), 
+                  link.encode('ascii', 'ignore')]
+    except:
+        flash("Invalid ABV number, must be an INT or a DOUBLE")
+        return redirect("/")
     return render_template("page.html", result = output)
 
 @app.route("/<bid>")

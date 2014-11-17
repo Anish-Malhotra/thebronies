@@ -30,6 +30,18 @@
 	<br>
 	<form class="form_control" action="" method="POST" role="form">
 	  <div class="form_group">
+
+	    <!-- Display flashed messages -->
+	    {% with msgs = get_flashed_messages() %}
+            {% if msgs %}
+            {%- for msg in msgs %}
+            <div class="alert alert-info">
+              {{ msg }}
+            </div>
+            {% endfor -%}
+            {% endif %}
+	    {% endwith %}
+
 	    <input type="text" name="abv">
 	    <!--input class="form-control" type="text" name="search" value=""--><br>
 	    <br>
